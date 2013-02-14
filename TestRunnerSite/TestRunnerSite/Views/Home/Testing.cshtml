@@ -1,0 +1,46 @@
+﻿@model TestRunnerSite.Models.TestingModels.RunningTestModel
+@{
+    ViewBag.Title = "Testing";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link rel="stylesheet" href="https://app.divshot.com/themes/cyborg/bootstrap.min.css">
+<link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css"> 
+
+<div class="well">
+<h2>Testing....</h2>
+</div>
+<div class="well">
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Name)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Class)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Class)
+    </div>
+    <div class="display-label">
+         <h4>@Html.DisplayNameFor(model => model.Mode)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mode)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.SiteID)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SiteID)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Settings)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Settings)
+    </div>
+</div>
+    
+

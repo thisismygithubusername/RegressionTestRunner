@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<link rel="stylesheet" href="https://app.divshot.com/themes/cyborg/bootstrap.min.css">
+<link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css"> 
+
+@using (Html.BeginForm("Testing", "Home", FormMethod.Post))
+ {
+     <div class="container">
+         <div class="page-header"></div>
+         <div class="row">
+             <div class="span4">
+                 <div class="well">
+                     <h4>Test Name</h4>
+                     <p>Please type the name of the test you'd like tyo run.</p>
+                     <input type="text" class="input-medium" name="testName">
+                 </div>
+                 <div class="well">
+                     <h4>Test Class</h4>
+                     <p>Choose class file of test</p>
+                     <select class="input-medium" name="testClass">
+                         <option>AppointmentsTests</option>
+                         <option>AutoEmailsTests</option>
+                         <option>ClassesTests</option>
+                         <option>ClientsTests</option>
+                         <option>DashboardTests</option>
+                         <option>DataMaintenanceTests</option>
+                         <option>LanguageSettingsOptionsTests</option>
+                         <option>ProductManagementTests</option>
+                         <option>ReportsTests</option>
+                         <option>RetailTests</option>
+                         <option>ServicesTests</option>
+                         <option>SetupTests</option>
+                         <option>StaffTesting</option>
+                         <option>WorkshopsPageTests</option>
+                         <option>CMAppointmentsTests</option>
+                         <option>CMClassesTests</option>
+                         <option>CMLoggedOutTests</option>
+                         <option>CMMyInfoTests</option>
+                         <option>CMOnlineStoretests</option>
+                         <option>CMRewardsTests</option>
+                         <option>WorkshopsPageTests</option>
+                         <option>CMWorkshopsTests</option>
+                     </select> 
+                 </div>
+             </div>
+             <div class="span4">
+                 <div class="well">
+                     <h4>Test Type</h4>
+                     <p>Consumer or Business</p>
+                     <select class="input-medium" name="testType">
+                         <option>BusinessMode</option>
+                         <option>ConsumerMode</option>
+                     </select>
+                 </div>
+                 <div class="well">
+                     <h4>Site ID</h4>
+                     <p>Enter a valid site id for the test to run</p>
+                     <input type="text" class="input-medium" name="SiteID"> 
+                 </div>
+             </div>
+         </div>
+         <ul class="breadcrumb"></ul>
+         <div class="form-actions">
+             <button type="submit" class="btn btn-primary">Run Test</button>
+             <input type="reset" class="btn" value="Reset"> 
+         </div>
+     </div>
+ }
+    <script src="https://app.divshot.com/js/jquery.min.js"></script>
+    <script src="https://app.divshot.com/js/bootstrap.min.js"></script>
+
