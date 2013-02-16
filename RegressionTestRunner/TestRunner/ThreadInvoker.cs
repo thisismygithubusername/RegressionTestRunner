@@ -18,7 +18,7 @@ namespace RegressionTestRunner.TestRunner
     public static class ThreadInvoker 
     {
 
-        public static void RunMultipleThreads(int threadCount, IRunnable testRunner, Dictionary<String, TestResult> tests )
+        public static void RunMultipleThreads(int threadCount, IRunnable testRunner, Dictionary<String, TestToRun> tests )
         {
             Console.WriteLine("About to run" + threadCount + " threads");
             var tasks = new List<Task>();

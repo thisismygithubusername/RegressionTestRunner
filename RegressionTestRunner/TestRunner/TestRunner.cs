@@ -6,11 +6,15 @@ using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Regression.Library.Infrastructure;
+using Regression.Tests.Fixtures;
 using Regression.Tests.Settings;
 using RegressionTestRunner.Models;
 
+
 namespace RegressionTestRunner.TestRunner
 {
+
     public class TestRunner : IRunnable
     {
         public List<TestFailure> ListOfFailedTests = new List<TestFailure>();
@@ -26,26 +30,37 @@ namespace RegressionTestRunner.TestRunner
             }
         }
 
-        public bool RunSingleTest(TestResult test)
+
+        public bool RunSingleTest(TestToRun test)
+        {
+            return SingleTest(test);
+        }
+
+        public bool RunSingleTest(RunningTest test)
+        {
+            return SingleTest(ConvertRunningTest(test), test.Settings);
+        }
+
+        private bool SingleTest(TestToRun test, TestSettings settings = null)
         {
             var testClass = TestTypes.GetTestClassInstanceFromString(test.TestClass);
             OutPutTestInfo(test, testClass);
-            //testClass.GdoSetup("-40250");
-            testClass.GenerateSession("Business");
-            //testClass.ExtraSetup();
+            //Run setup with or without custom settings 
+            
+            if (settings == null)
+                testClass.Setup();
+            else 
+                testClass.Setup(settings);
+            //Generate Session Based which fixture the test use
+            GenerateSessionForTestClass(testClass, test.TestType);
+
             try
             {
                 testClass.GetType().InvokeMember(test.TestName, BindingFlags.InvokeMethod, null, testClass, null);
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0} Exception caught.", e);
-                Console.WriteLine(Environment.NewLine);
-                ListOfFailedTests.Add(new TestFailure
-                    {
-                        Test = test,
-                        exception = e
-                    });
+                LogExceptionAndAddTestFailure(e, test);
                 testClass.Session.Quit();
                 return false;
 
@@ -56,13 +71,50 @@ namespace RegressionTestRunner.TestRunner
             }
             return true;
         }
+        
+        private void LogExceptionAndAddTestFailure(Exception e, TestToRun test)
+        {
+            Console.WriteLine("{0} Exception caught.", e);
+                Console.WriteLine(Environment.NewLine);
+                ListOfFailedTests.Add(new TestFailure
+                    {
+                        Test = test,
+                        exception = e
+                    });
+        }
 
+        private void GenerateSessionForTestClass(MBTestFixture testFixture, string testType)
+        {
+            if (testType.Contains("Business"))
+            {
+                testFixture.GenerateSession("Business");
+            }
+            else if (testType.Contains("Consumer"))
+            {
+                testFixture.GenerateSession("Consumer");
+                Console.WriteLine("Consumer Mode Login: " + testFixture.Session.UserPrefix + "@mbo.com");
+                Console.WriteLine("Consumer Mode Password: client1234");
+            }
+            else
+            {
+                testFixture.GenerateSession("None");
+            }
+        }
         public void PrintFailedTestResult(List<TestFailure> failedTests)
         {
             Console.WriteLine(failedTests);
         }
 
-        public void OutPutTestInfo(TestResult test, object testClass)
+        private TestToRun ConvertRunningTest(RunningTest m)
+        {
+            return new TestToRun
+                {
+                    TestName = m.Name,
+                    TestClass = m.Class,
+                    TestType = m.Mode
+                };
+        }
+        public void OutPutTestInfo(TestToRun test, object testClass)
         {
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine("TestClass is : " + testClass.GetType());

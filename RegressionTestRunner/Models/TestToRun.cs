@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RegressionTestRunner.Models
 {
-    public class TestResult
+    public class TestToRun
     {
-        public TestResult() { }
+        public TestToRun() { }
 
         public string TestName { get; set; }
 

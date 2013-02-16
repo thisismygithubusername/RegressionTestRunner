@@ -12,9 +12,9 @@ namespace RegressionTestRunner.Models
         /*
         * Returns a list of TestResult Objects
         */
-        public static List<TestResult> GetListOfBusinessModeTestResults()
+        public static List<TestToRun> GetListOfBusinessModeTestResults()
         {
-            var listOfTestResults = new List<TestResult>();
+            var listOfTestResults = new List<TestToRun>();
             var listofTests = GetListOfTests();
 
             foreach (string test in listofTests)
@@ -33,11 +33,11 @@ namespace RegressionTestRunner.Models
          * "Coverage.BusinessMode.WorkshopsPageTests.ScheduleWorkshopChangeCostume"
          *  Turn the string into a TestResult object and returns it
          */
-        private static TestResult ParseTestIntoTestResult(String test)
+        private static TestToRun ParseTestIntoTestResult(String test)
         {
             const char delimeter = '.';
             string[] testAtrributes = test.Split(delimeter);
-            var testResult = new TestResult
+            var testResult = new TestToRun
             {
                 TestClass = testAtrributes[2],
                 TestName = testAtrributes[3],

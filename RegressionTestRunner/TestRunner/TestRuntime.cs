@@ -47,7 +47,7 @@ namespace RegressionTestRunner.TestRunner
         {
             //var list = TestInfoFetcher.GetListOfBusinessModeTestResults();
             var list = GetSmallListOfTests();
-            var dictOfTests = new Dictionary<String, TestResult>();
+            var dictOfTests = new Dictionary<String, TestToRun>();
             for (int i = 1; i < 4; i++)
             {
                 String test = "test" + i;
@@ -66,22 +66,22 @@ namespace RegressionTestRunner.TestRunner
             }
         }
         // Just for shit and gigs 
-        private List<TestResult> GetSmallListOfTests()
+        private List<TestToRun> GetSmallListOfTests()
         {
-            var tests = new List<TestResult>();
-            tests.Add(new TestResult
+            var tests = new List<TestToRun>();
+            tests.Add(new TestToRun
             {
                 TestClass = "SetupTests",
                 TestName = "TestRoomNumbersTable",
                 TestType = "BusinessMode"
             });
-            tests.Add(new TestResult
+            tests.Add(new TestToRun
             {
                 TestClass = "SetupTests",
                 TestName = "TestSetupIPListLink",
                 TestType = "BusinessMode"
             });
-            tests.Add(new TestResult
+            tests.Add(new TestToRun
             {
                 TestClass = "SetupTests",
                 TestName = "ToggleOptions",

@@ -58,9 +58,10 @@
   <ItemGroup>
     <Compile Include="Models\GSpreadsheetDataFetcher.cs" />
     <Compile Include="Models\IRunnable.cs" />
+    <Compile Include="Models\RunningTest.cs" />
     <Compile Include="Models\TestFailure.cs" />
     <Compile Include="Models\TestInfoFetcher.cs" />
-    <Compile Include="Models\TestResult.cs" />
+    <Compile Include="Models\TestToRun.cs" />
     <Compile Include="Models\TestTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

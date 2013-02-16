@@ -8,7 +8,7 @@ namespace RegressionTestRunner.Models
 {
     public class TestFailure
     {
-        public TestResult Test { get; set; }
+        public TestToRun Test { get; set; }
         public Exception exception { get; set; }
 
     }

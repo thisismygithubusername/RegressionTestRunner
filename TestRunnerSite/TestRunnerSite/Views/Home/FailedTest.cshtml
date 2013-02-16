@@ -1,0 +1,45 @@
+﻿@model TestRunnerSite.Models.TestingModels.FailedTestModel
+@{
+    ViewBag.Title = "FailedTest";
+}
+
+<h2>Test Failed</h2>
+<h3></h3>
+<div class="well">
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Name)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Class)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Class)
+    </div>
+    <div class="display-label">
+         <h4>@Html.DisplayNameFor(model => model.Mode)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mode)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.SiteID)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SiteID)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Settings)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Settings)
+    </div>
+    <div class="display-label">
+        <h4>@Html.DisplayNameFor(model => model.Failure)</h4>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Failure)
+    </div>
+</div>

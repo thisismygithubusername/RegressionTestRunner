@@ -8,6 +8,6 @@ namespace RegressionTestRunner.Models
 {
     public interface IRunnable
     {
-        bool RunSingleTest(TestResult test);
+        bool RunSingleTest(TestToRun test);
     }
 }

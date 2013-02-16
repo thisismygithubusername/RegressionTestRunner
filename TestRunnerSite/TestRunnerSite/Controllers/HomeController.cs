@@ -40,24 +40,50 @@ namespace TestRunnerSite.Controllers
             {
                 return View("InvalidTest");
             }
-            else
+            var testRunner = new TestRunner();
+            var testSettings = TestSettings.ParseSettings();
+            testSettings.SiteID = SiteID;
+            testSettings.useGrid = true;
+            //testRunner.WriteTestSettings(testSettings);
+            string settings = "SiteID: " + testSettings.SiteID +
+                              ", Domain: " + testSettings.Domain;
+            var model = new TestingModels.RunningTestModel
+                {
+                    Name = testName,
+                    Class = testClass,
+                    Mode = testType,
+                    SiteID = SiteID,
+                    Settings = settings
+                };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult TestingPost(TestingModels.RunningTestModel m)
+        {
+            try
             {
                 var testRunner = new TestRunner();
-                var testSettings = TestSettings.ParseSettings();
-                testSettings.SiteID = SiteID;
-                //testRunner.WriteTestSettings(testSettings);
-                string settings = "SiteID: " + testSettings.SiteID +
-                                  ", Domain: " + testSettings.Domain;
-                var model = new TestingModels.RunningTestModel
-                    {
-                        Name = testName,
-                        Class = testClass,
-                        Mode = testType,
-                        SiteID = SiteID,
-                        Settings = settings
-                    };
-                return View(model);
+                testRunner.RunSingleTest(m);
             }
+            catch (Exception e)
+            {
+                string failure = e.Data.ToString();
+                var testFailure = new TestingModels.FailedTestModel
+                    {
+                        Name = m.Name,
+                        Class = m.Class,
+                        Mode = m.Mode,
+                        SiteID = m.SiteID,
+                        Settings = m.Settings,
+                        Failure = failure
+                    };
+
+                return View("FailedTest", testFailure);
+            }
+
+            return View("Success");
+
         }
     }
 }
