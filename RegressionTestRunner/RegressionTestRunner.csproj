@@ -56,13 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\APITestTypes.cs" />
     <Compile Include="Models\GSpreadsheetDataFetcher.cs" />
     <Compile Include="Models\IRunnable.cs" />
     <Compile Include="Models\RunningTest.cs" />
+    <Compile Include="Models\TestClassReflector.cs" />
     <Compile Include="Models\TestFailure.cs" />
     <Compile Include="Models\TestInfoFetcher.cs" />
     <Compile Include="Models\TestToRun.cs" />
-    <Compile Include="Models\TestTypes.cs" />
+    <Compile Include="Models\RegressionTestTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestRunner\TestRunner.cs" />
@@ -73,6 +75,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\mbregressiontests\CSharp\APITest.Library\APITest.Library.csproj">
+      <Project>{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}</Project>
+      <Name>APITest.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\mbregressiontests\CSharp\Regression.Library\Regression.Library.csproj">
       <Project>{8999E0C8-1042-45C2-A03B-7D4D9597BF59}</Project>
       <Name>Regression.Library</Name>

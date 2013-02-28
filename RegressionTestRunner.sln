@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regression.Library", "..\mb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunnerSite", "TestRunnerSite\TestRunnerSite\TestRunnerSite.csproj", "{DC22C19D-0D89-4180-A6C2-C29844746799}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APITest.Library", "..\mbregressiontests\CSharp\APITest.Library\APITest.Library.csproj", "{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{DC22C19D-0D89-4180-A6C2-C29844746799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC22C19D-0D89-4180-A6C2-C29844746799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC22C19D-0D89-4180-A6C2-C29844746799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97AE930F-AF06-44DD-B938-F0BE9F53A5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

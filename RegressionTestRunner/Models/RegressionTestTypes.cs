@@ -9,10 +9,11 @@ using Regression.Library.Infrastructure;
 using Regression.Library.Utilities;
 using Regression.Tests.Coverage.BusinessMode;
 using Regression.Tests.Fixtures;
+using mb.Web.Tests.Automation.APITests.AvailableMethods;
 
 namespace RegressionTestRunner.Models
 {
-    public static class TestTypes
+    public class RegressionTestTypes : TestClassReflector
     {
 
         public static AppointmentsTests AppointmentsTests()
@@ -69,12 +70,5 @@ namespace RegressionTestRunner.Models
             return /*GetTypeOf(*/new WorkshopsPageTests();
         }
 
-        public static LoggedInTestFixture GetTestClassInstanceFromString(string testClass)
-        {
-            Type type = typeof(TestTypes);
-            MethodInfo info = type.GetMethod(testClass);
-            var testfile = info.Invoke(null, null);
-            return (LoggedInTestFixture)testfile;
-        }
     }
 }

@@ -41,9 +41,32 @@ namespace RegressionTestRunner.TestRunner
             return SingleTest(ConvertRunningTest(test), test.Settings);
         }
 
+        public bool RunAPITest(string testName, string classfile)
+        {
+            var testClass = new APITestTypes().GetTestClassInstanceFromString(classfile);
+            var currentTestsInClass = testClass.GetType().GetMethods().ToList();
+
+            testName = currentTestsInClass.Find(x => x.Name.Contains(testName)).Name;
+            testClass.TestSetup();
+            try
+            {
+                testClass.GetType().InvokeMember(testName, BindingFlags.InvokeMethod, null, testClass, null);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("OMYGERD :" + e.Message);
+                return false;
+            }
+            finally
+            {
+                testClass.TearDown();
+            }
+            return true;
+        }
+
         private bool SingleTest(TestToRun test, TestSettings settings = null)
         {
-            var testClass = TestTypes.GetTestClassInstanceFromString(test.TestClass);
+            var testClass =  new RegressionTestTypes().GetTestClassInstanceFromString(test.TestClass);
             OutPutTestInfo(test, testClass);
             //Run setup with or without custom settings 
             
@@ -138,14 +161,14 @@ namespace RegressionTestRunner.TestRunner
 
         private static bool IsTestInClass(string test, string className)
         {
-            var testClass = TestTypes.GetTestClassInstanceFromString(className);
+            var testClass = new RegressionTestTypes().GetTestClassInstanceFromString(className);
             var list = testClass.GetType().GetMethods();
             return list.Any(methodInfo => methodInfo.Name.Equals(test));
         }
 
         private static bool IsTestClass(string testClass)
         {
-            var testClasses = typeof (TestTypes).GetMethods();
+            var testClasses = typeof (RegressionTestTypes).GetMethods();
             return testClasses.Any(methodInfo => methodInfo.Name.Equals(testClass));
         }
 

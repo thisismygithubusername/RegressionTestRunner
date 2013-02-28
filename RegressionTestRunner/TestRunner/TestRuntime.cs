@@ -43,6 +43,31 @@ namespace RegressionTestRunner.TestRunner
             PrintFailedTestResult(ListOfFailedTests);
         }
 
+        public List<MemberInfo> GetTestListFromClass(string className)
+        {
+            object testClass;
+            try
+            {
+                testClass = new APITestTypes().GetTestClassInstanceFromString(className);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    testClass = new APITestTypes().GetTestClassInstanceFromString(className);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            var list = testClass.GetType().GetMethods();
+
+            return (from methodInfo in list
+                    let attr = methodInfo.CustomAttributes.ToList()
+                    where attr.Select(x => x.AttributeType.Name.Contains("Test")).Any()
+                    select methodInfo).Cast<MemberInfo>().ToList();
+        } 
         public void RunFirstThreeTests()
         {
             //var list = TestInfoFetcher.GetListOfBusinessModeTestResults();
