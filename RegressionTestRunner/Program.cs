@@ -15,12 +15,19 @@ namespace RegressionTestRunner
         {
             var testRunner = new TestRuntime();
             const string testClass = "AppointmentTests";
-            testRunner.RunAPITest("CheckScheduleItems", testClass);
-            var tests = testRunner.GetTestListFromClass(testClass);
-            foreach (var memberInfo in tests)
+            try
             {
-                testRunner.RunAPITest(memberInfo.Name, testClass);
+                testRunner.RunAPITest("CheckScheduleItems", testClass);
             }
+            catch (Exception e )
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            //var tests = testRunner.GetTestListFromClass(testClass);
+            //foreach (var memberInfo in tests)
+            //{
+           //     testRunner.RunAPITest(memberInfo.Name, testClass);
+           // }
             Console.ReadKey();
         }
     }
