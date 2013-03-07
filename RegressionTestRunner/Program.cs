@@ -1,33 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Regression.Tests.Fixtures;
-using RegressionTestRunner.TestRunner;
+using RegressionTestRunner.Models;
+using RegressionTestRunner.TestRunnerModules;
 
 namespace RegressionTestRunner
 {
-    internal class Program
+    class Program
     {
         private static void Main(string[] args)
         {
-            var testRunner = new TestRuntime();
+            var testRunner = new TestRunner();
             const string testClass = "AppointmentTests";
-            try
+
+            //testRunner.RunAPITest("CheckAddOrUpdateAvailabilities", testClass);
+            
+
+            var tests = testRunner.GetTestListFromClass(testClass);
+            var faliedTests = new List<MethodInfo>();
+            foreach (var methodInfo in tests)
             {
-                testRunner.RunAPITest("CheckScheduleItems", testClass);
+                var didPass = testRunner.RunAPITest(methodInfo.Name, testClass);
+                if (didPass == false)
+                {
+                    faliedTests.Add(methodInfo);
+                }
             }
-            catch (Exception e )
+           
+            Console.WriteLine("Done Running all tests");
+            Console.WriteLine(Environment.NewLine + "Tests that failed are:");
+            //Console.WriteLine("             Test                Test File");
+            Console.WriteLine("{0}{1,10}", "Test", "Test File");
+            foreach (MethodInfo faliedTest in faliedTests)
             {
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine("{0,4}    {1,-10}", faliedTest.Name, faliedTest.ReflectedType.Name);
+                //Console.WriteLine(faliedTest.Name + " in " + faliedTest.ReflectedType.Name);
             }
-            //var tests = testRunner.GetTestListFromClass(testClass);
-            //foreach (var memberInfo in tests)
-            //{
-           //     testRunner.RunAPITest(memberInfo.Name, testClass);
-           // }
             Console.ReadKey();
         }
     }

@@ -4,19 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
-using Regression.Library.Infrastructure;
 using Regression.Tests.Fixtures;
 using Regression.Tests.Settings;
 using RegressionTestRunner.Models;
 
-
-namespace RegressionTestRunner.TestRunner
+namespace RegressionTestRunner.TestRunnerModules
 {
 
     public class TestRunner : IRunnable
     {
+        public TestRunner() {}
         public List<TestFailure> ListOfFailedTests = new List<TestFailure>();
 
         private static string AssemblyDirectory
@@ -48,21 +45,63 @@ namespace RegressionTestRunner.TestRunner
 
             testName = currentTestsInClass.Find(x => x.Name.Contains(testName)).Name;
             testClass.TestSetup();
+
+            var testFailure = false;
+            var invokeFailure = false;
+            Console.WriteLine("****************************************************************************");
+            Console.WriteLine(Environment.NewLine + "Attempting to run test : " + testName);
             try
             {
-                testClass.GetType().InvokeMember(testName, BindingFlags.InvokeMethod, null, testClass, null);
+                try
+                {
+                    testClass.GetType().InvokeMember(testName, BindingFlags.InvokeMethod, null, testClass, null);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Test "+ testName + " falied: " );
+                    invokeFailure = true;
+                }
+                finally
+                {
+                    testClass.TearDown();
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine("OMYGERD :" + e.Message);
-                return false;
+                Console.WriteLine("Test actually failed ");
+                testFailure = true;
             }
-            finally
-            {
-                testClass.TearDown();
-            }
-            return true;
+            
+            return !testFailure && !invokeFailure;
         }
+
+        public List<MethodInfo> GetTestListFromClass(string className)
+        {
+            object testClass;
+            try
+            {
+                testClass = new APITestTypes().GetTestClassInstanceFromString(className);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    testClass = new APITestTypes().GetTestClassInstanceFromString(className);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            var list = testClass.GetType().GetMethods().ToList();
+
+            return (from methodInfo in list
+                    let attributes = methodInfo.GetCustomAttributes().ToList()
+                    where
+                        attributes.Select(attribute => attribute.GetType().Name)
+                                  .Any(attName => attName.Equals("TestAttribute"))
+                    select methodInfo).ToList();
+        } 
 
         private bool SingleTest(TestToRun test, TestSettings settings = null)
         {

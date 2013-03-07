@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using Regression.Tests.Settings;
 using RegressionTestRunner.Models;
-using RegressionTestRunner.TestRunner;
 
 namespace TestRunnerSite.Models
 {

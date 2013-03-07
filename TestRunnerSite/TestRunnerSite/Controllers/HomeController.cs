@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Regression.Tests.Settings;
 using RegressionTestRunner.Models;
+using RegressionTestRunner.TestRunnerModules;
 using TestRunnerSite.Models;
-using RegressionTestRunner.TestRunner;
 using TestRunnerSite.Models;
 
 namespace TestRunnerSite.Controllers

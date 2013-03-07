@@ -67,9 +67,9 @@
     <Compile Include="Models\RegressionTestTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestRunner\TestRunner.cs" />
-    <Compile Include="TestRunner\TestRuntime.cs" />
-    <Compile Include="TestRunner\ThreadInvoker.cs" />
+    <Compile Include="TestRunnerModules\TestRunner.cs" />
+    <Compile Include="TestRunnerModules\TestRuntime.cs" />
+    <Compile Include="TestRunnerModules\ThreadInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,20 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Google.GData.Client;
-using Google.GData.Spreadsheets;
-using MbUnit.Framework;
-using Regression.Library.Infrastructure;
-using Regression.Library.Utilities;
-using Regression.Tests.Coverage.BusinessMode;
-using Regression.Tests.Fixtures;
 using RegressionTestRunner.Models;
 
-namespace RegressionTestRunner.TestRunner
+namespace RegressionTestRunner.TestRunnerModules
 {
     public class TestRuntime : TestRunner
     {
@@ -43,31 +31,6 @@ namespace RegressionTestRunner.TestRunner
             PrintFailedTestResult(ListOfFailedTests);
         }
 
-        public List<MemberInfo> GetTestListFromClass(string className)
-        {
-            object testClass;
-            try
-            {
-                testClass = new APITestTypes().GetTestClassInstanceFromString(className);
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    testClass = new APITestTypes().GetTestClassInstanceFromString(className);
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-            }
-            var list = testClass.GetType().GetMethods();
-
-            return (from methodInfo in list
-                    let attr = methodInfo.CustomAttributes.ToList()
-                    where attr.Select(x => x.AttributeType.Name.Contains("Test")).Any()
-                    select methodInfo).Cast<MemberInfo>().ToList();
-        } 
         public void RunFirstThreeTests()
         {
             //var list = TestInfoFetcher.GetListOfBusinessModeTestResults();

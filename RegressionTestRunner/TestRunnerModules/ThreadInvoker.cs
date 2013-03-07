@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using RegressionTestRunner.Models;
 
-namespace RegressionTestRunner.TestRunner
+namespace RegressionTestRunner.TestRunnerModules
 {
     /*
      *          Task task1 = Task.Factory.StartNew(() => testRunner.RunSingleTest(tests["test1"]));
